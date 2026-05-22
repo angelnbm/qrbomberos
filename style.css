@@ -1,0 +1,172 @@
+:root {
+  --red-900: #7a0016;
+  --red-700: #b00020;
+  --red-500: #e31b2e;
+  --black-900: #0b0b0d;
+  --white: #ffffff;
+  --gray-100: #f5f5f5;
+  --gray-300: #d6d6d6;
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Source Sans 3", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at top, #1a1a1f 0%, #0c0c0f 55%, #060607 100%);
+  color: var(--white);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px 18px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.app__header {
+  text-align: center;
+  padding: 18px 16px 8px;
+  background: linear-gradient(140deg, rgba(176, 0, 32, 0.95), rgba(50, 0, 10, 0.95));
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+
+.badge {
+  display: inline-block;
+  font-family: "Bebas Neue", "Impact", sans-serif;
+  letter-spacing: 1.5px;
+  font-size: 18px;
+  text-transform: uppercase;
+  background: var(--black-900);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Bebas Neue", "Impact", sans-serif;
+  font-size: 38px;
+  letter-spacing: 1.5px;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  font-size: 16px;
+  color: var(--gray-100);
+}
+
+.scanner {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow);
+}
+
+.scanner__viewport {
+  width: 100%;
+  min-height: 260px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+}
+
+.scanner__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn {
+  flex: 1;
+  padding: 14px 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--primary {
+  background: var(--red-500);
+  color: var(--white);
+  box-shadow: 0 8px 18px rgba(227, 27, 46, 0.4);
+}
+
+.btn--primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.status {
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: var(--gray-100);
+}
+
+.status--error {
+  color: #ffb3b8;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.card {
+  background: var(--white);
+  color: var(--black-900);
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--red-700);
+}
+
+.card p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .app {
+    padding: 32px 24px 60px;
+  }
+
+  h1 {
+    font-size: 44px;
+  }
+
+  .card p {
+    font-size: 22px;
+  }
+}

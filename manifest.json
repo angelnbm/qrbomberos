@@ -1,0 +1,22 @@
+{
+  "name": "QR Medico Bomberos Teno",
+  "short_name": "QR Bomberos",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0b0d",
+  "theme_color": "#b00020",
+  "description": "Identificacion medica offline para voluntarios.",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

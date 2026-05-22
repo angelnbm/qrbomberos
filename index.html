@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#b00020" />
+    <title>QR Medico Bomberos Teno</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <div class="badge">1a Compania Bomberos de Teno</div>
+        <h1>Identificacion Medica</h1>
+        <p class="subtitle">Escaneo rapido de QR offline</p>
+      </header>
+
+      <section class="scanner">
+        <div id="reader" class="scanner__viewport" aria-label="Camara"></div>
+        <div class="scanner__actions">
+          <button id="startBtn" class="btn btn--primary" type="button">
+            Iniciar camara
+          </button>
+          <button id="stopBtn" class="btn btn--ghost" type="button" disabled>
+            Detener
+          </button>
+        </div>
+        <p id="status" class="status" role="status">Listo para escanear.</p>
+      </section>
+
+      <section class="cards" aria-live="polite">
+        <article class="card">
+          <h2>Nombre</h2>
+          <p id="cardName">-</p>
+        </article>
+        <article class="card">
+          <h2>Grupo sanguineo</h2>
+          <p id="cardBlood">-</p>
+        </article>
+        <article class="card">
+          <h2>Alergias</h2>
+          <p id="cardAllergy">-</p>
+        </article>
+        <article class="card">
+          <h2>Contacto</h2>
+          <p id="cardPhone">-</p>
+        </article>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/html5-qrcode@2.3.10/html5-qrcode.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
