@@ -53,9 +53,52 @@
           <p id="cardPhone">-</p>
         </article>
       </section>
+
+      <section class="generator">
+        <header class="generator__header">
+          <h2>Generar QR</h2>
+          <p>Completa los datos y crea el codigo para imprimir.</p>
+        </header>
+        <form id="qrForm" class="generator__form" autocomplete="off">
+          <label class="field">
+            <span>Nombre completo</span>
+            <input id="inputName" type="text" required placeholder="Juan Perez" />
+          </label>
+          <label class="field">
+            <span>Grupo sanguineo</span>
+            <input id="inputBlood" type="text" required placeholder="O Positivo" />
+          </label>
+          <label class="field">
+            <span>Alergias</span>
+            <input
+              id="inputAllergy"
+              type="text"
+              required
+              placeholder="Penicilina, Ibuprofeno"
+            />
+          </label>
+          <label class="field">
+            <span>Telefono contacto</span>
+            <input id="inputPhone" type="tel" required placeholder="+56912345678" />
+          </label>
+          <div class="generator__actions">
+            <button id="generateBtn" class="btn btn--primary" type="button">
+              Generar QR
+            </button>
+            <button id="clearBtn" class="btn btn--ghost" type="button">
+              Limpiar
+            </button>
+          </div>
+        </form>
+        <div class="generator__output">
+          <div id="qrOutput" class="qr-output" aria-label="Codigo QR"></div>
+          <p id="qrPayload" class="qr-payload">-</p>
+        </div>
+      </section>
     </main>
 
     <script src="https://unpkg.com/html5-qrcode@2.3.10/html5-qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

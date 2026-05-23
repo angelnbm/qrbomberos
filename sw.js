@@ -1,5 +1,6 @@
 const CACHE_NAME = "qr-bomberos-v1";
 const CDN_URL = "https://unpkg.com/html5-qrcode@2.3.10/html5-qrcode.min.js";
+const QR_CDN_URL = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
 const ASSETS = [
   "./",
   "./index.html",
@@ -7,6 +8,7 @@ const ASSETS = [
   "./app.js",
   "./manifest.json",
   CDN_URL,
+  QR_CDN_URL,
 ];
 
 self.addEventListener("install", (event) => {

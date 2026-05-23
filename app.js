@@ -5,10 +5,19 @@ const cardName = document.getElementById("cardName");
 const cardBlood = document.getElementById("cardBlood");
 const cardAllergy = document.getElementById("cardAllergy");
 const cardPhone = document.getElementById("cardPhone");
+const qrForm = document.getElementById("qrForm");
+const clearBtn = document.getElementById("clearBtn");
+const inputName = document.getElementById("inputName");
+const inputBlood = document.getElementById("inputBlood");
+const inputAllergy = document.getElementById("inputAllergy");
+const inputPhone = document.getElementById("inputPhone");
+const qrOutput = document.getElementById("qrOutput");
+const qrPayload = document.getElementById("qrPayload");
 
 const readerId = "reader";
 let html5QrCode;
 let isScanning = false;
+let qrCodeInstance;
 
 const resetCards = () => {
   cardName.textContent = "-";
@@ -40,6 +49,24 @@ const updateCards = (data) => {
   cardBlood.textContent = data.blood;
   cardAllergy.textContent = data.allergy;
   cardPhone.textContent = data.phone;
+};
+
+const buildPayload = () => {
+  return [
+    inputName.value.trim(),
+    inputBlood.value.trim(),
+    inputAllergy.value.trim(),
+    inputPhone.value.trim(),
+  ].join("|");
+};
+
+const resetGenerator = () => {
+  qrOutput.innerHTML = "";
+  qrPayload.textContent = "-";
+  if (qrCodeInstance) {
+    qrCodeInstance.clear();
+    qrCodeInstance = null;
+  }
 };
 
 const onScanSuccess = (decodedText) => {
@@ -103,6 +130,39 @@ const stopScanner = async () => {
 
 startBtn.addEventListener("click", startScanner);
 stopBtn.addEventListener("click", stopScanner);
+
+const handleGenerate = () => {
+  const payload = buildPayload();
+  if (payload.split("|").some((part) => part.length === 0)) {
+    setStatus("Completa todos los campos antes de generar.", true);
+    return;
+  }
+
+  resetGenerator();
+  qrCodeInstance = new QRCode(qrOutput, {
+    text: payload,
+    width: 220,
+    height: 220,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M,
+  });
+  qrPayload.textContent = payload;
+  setStatus("QR generado. Puedes imprimirlo.");
+};
+
+qrForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  handleGenerate();
+});
+
+document.getElementById("generateBtn").addEventListener("click", handleGenerate);
+
+clearBtn.addEventListener("click", () => {
+  qrForm.reset();
+  resetGenerator();
+  setStatus("Formulario limpio.");
+});
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
