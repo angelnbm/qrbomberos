@@ -1,4 +1,4 @@
-const CACHE_NAME = "qr-bomberos-v1";
+const CACHE_NAME = "qr-bomberos-v2";
 const CDN_URL = "https://unpkg.com/html5-qrcode@2.3.10/html5-qrcode.min.js";
 const QR_CDN_URL = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
 const ASSETS = [

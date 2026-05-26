@@ -31,8 +31,20 @@ const setStatus = (message, isError = false) => {
   statusEl.classList.toggle("status--error", isError);
 };
 
+const normalizeScannedText = (text) => {
+  if (typeof text !== "string") {
+    return "";
+  }
+  return text
+    .normalize("NFKC")
+    .replace(/\s*\|\s*/g, "|")
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
 const parsePayload = (text) => {
-  const parts = text.split("|").map((part) => part.trim());
+  const normalizedText = normalizeScannedText(text);
+  const parts = normalizedText.split("|").map((part) => part.trim());
   if (parts.length !== 4 || parts.some((part) => part.length === 0)) {
     return null;
   }
@@ -69,7 +81,13 @@ const resetGenerator = () => {
   }
 };
 
+let lastScanLog = null;
+
 const onScanSuccess = (decodedText) => {
+  if (decodedText && decodedText !== lastScanLog) {
+    console.log("QR scan raw:", decodedText);
+    lastScanLog = decodedText;
+  }
   const data = parsePayload(decodedText);
   if (!data) {
     setStatus("QR invalido. Usa el formato Nombre|Grupo|Alergias|Telefono", true);
@@ -108,7 +126,36 @@ const startScanner = async () => {
     stopBtn.disabled = false;
     setStatus("Escaneando...");
   } catch (error) {
-    setStatus("No se pudo acceder a la camara. Revisa permisos.", true);
+    console.error("Error al iniciar la camara:", error);
+    try {
+      const cameras = await Html5Qrcode.getCameras();
+      if (!cameras || cameras.length === 0) {
+        setStatus("No se encontraron camaras disponibles.", true);
+        return;
+      }
+
+      const preferredCamera =
+        cameras.find((camera) => /back|rear|environment/i.test(camera.label)) ??
+        cameras[0];
+
+      await html5QrCode.start(
+        { deviceId: { exact: preferredCamera.id } },
+        {
+          fps: 10,
+          qrbox: { width: 240, height: 240 },
+          aspectRatio: 1.0,
+        },
+        onScanSuccess
+      );
+
+      isScanning = true;
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+      setStatus("Escaneando...");
+    } catch (fallbackError) {
+      console.error("Error al iniciar camara por deviceId:", fallbackError);
+      setStatus("No se pudo acceder a la camara. Revisa permisos.", true);
+    }
   }
 };
 
@@ -139,6 +186,7 @@ const handleGenerate = () => {
   }
 
   resetGenerator();
+  console.log("QR payload generado:", payload);
   qrCodeInstance = new QRCode(qrOutput, {
     text: payload,
     width: 220,
